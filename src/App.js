@@ -13,9 +13,9 @@ const App = () => {
         <div>
             <Header>
                 <ul className="flex">
-                    {genreList.map((it) => {
+                    {genreList.map((it, idx) => {
                         return (
-                            <li>
+                            <li key={idx}>
                                 <Link to={it}>{it}</Link>
                             </li>
                         );
@@ -24,7 +24,7 @@ const App = () => {
             </Header>
             <Routes>
                 <Route path="/" element={<Main limit={50} />} />
-                {genreList.map((it) => {
+                {genreList.map((it, idx) => {
                     return <Route path={it} element={<GenreList genre={it} limit={20} />} />;
                 })}
             </Routes>

@@ -1,14 +1,33 @@
-import React from 'react'
+import axios from "axios";
+import React, { useEffect, useState } from "react";
 
 const Search = () => {
-  return (
-    <div>
-        <form>
-            <input type="text" />
-            <button>SEARCH</button>
-        </form>
-    </div>
-  )
-}
+  const [movie, setMovie] = useState("");
+  const [input, setInput] = useState("");
+    const getMovie = async () => {
+        const res = await axios.get(`https://yts.mx/api/v2/list_movies.json?query_term=${input}`);
+        console.log(res.data.data.movies)
+    };
 
-export default Search
+    useEffect(()=>{
+      getMovie()
+    }, []);
+
+    const searchHandler = e => {
+      setInput(e.target.value)
+      console.log(input)
+    }
+
+    return (
+        <div className="Search">
+            <form>
+                <input type="text" onChange={searchHandler}/>
+                <button>
+                    <i className="xi-search"></i>
+                </button>
+            </form>
+        </div>
+    );
+};
+
+export default Search;
